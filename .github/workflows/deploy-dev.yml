@@ -19,15 +19,6 @@ jobs:
         with:
           node-version: '20.11.1'
 
-      - name: Set environment variables
-        run: |
-          touch .env.local
-          echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env.local
-
-      - name: Remove msw files
-        run: |
-          find ./public -name "mockServiceWorker.js" -delete
-
       - name: Build & Export
         run: |
           yarn install
@@ -39,5 +30,5 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
         run: |
-          aws s3 sync ./dist s3://internhasha-dev --delete
-          aws cloudfront create-invalidation --distribution-id E2A4HQWWKCBT4O --paths "/*"
+          aws s3 sync ./dist s3://wafflew8bucket --delete
+          aws cloudfront create-invalidation --distribution-id E2KUXZKNL4O2XE --paths "/*"
